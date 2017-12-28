@@ -1,4 +1,4 @@
-# PKI scripts and cheats (for newbies)
+# PKI scripts and cheats (for newbies)
 
 
 ## Intro
@@ -14,9 +14,7 @@ What I wanted is to have a dedicated CA and resulting PKI infrastructure for eac
 
 That's how the small, yet useful scripts came to be.
 
-
-## PKI based auth basics
-
+## PKI based auth basics
 
 You can just use the scripts provided, but it helps to understand a few things before you start, so let's get over it.
 
@@ -47,9 +45,7 @@ The scripts here willc reate also files like `<something>-NOPASS.<something>`; t
 > 
 > In reality, both the server and the client certificate are same thing as far as CA is concerned. If you installed in your browser the certificate intended for your server and vice versa it would still work (see CN note in client cert section).
 
-
-## Creating your own CA
-
+## Creating your own CA
 
 Extremely simple, just make sure you chose a memorable password for CA key - you will need to use it every time you issue client certificates.
 
@@ -86,9 +82,7 @@ That's all, now you have `ca.crt` and `ca.key` in the same folder as the script.
 
 If you need to generate lots of client certificates, you may risk it a bit and remove password from the CA signing key, but the scripts here don't go that far. Copy and paste is good enough and I normally do handful of certs, not hundreds, so that's easily manageable.
 
-
 ## Generating client/server certificates
-
 
 Once out CA is ready, we need to generate minimum two certificates - server and client. 
 
@@ -147,9 +141,7 @@ What happened here?
 
 There's also one more line in the script (but commented out), that generates similar in PEM format. Please uncomment it if you need it - I've included it for completeness only.
 
-
-## Checking certificate information
-
+## Checking certificate information
 
 ```
 $ openssl x509 -in USER1.crt -noout -text
@@ -173,9 +165,7 @@ Certificate:
 ```
 The important lines are `Issuer` and `Subject` - this is what you want to see, right?
 
-
-## Making it work - nginx reverse proxy configuration
-
+## Making it work - nginx reverse proxy configuration
 
 I use this one to reverse proxy traffic to my ELK docker instance, just because original ELK has no auth at all (unless you install X-Pack plugin), so PKI on reverse proxy is a fairly reasonable approach.
 
@@ -203,9 +193,7 @@ server {
 }
 ```
 
-
-## Security - what do others see?
-
+## Security - what do others see?
 
 If you put your stuff up on the internet, expect someone to scan you within seconds, so let's do the same and see how our web endpoint shows up after PKI authentication is required.
 
